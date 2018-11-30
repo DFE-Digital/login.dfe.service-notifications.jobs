@@ -17,7 +17,14 @@
   },
   "homepage": "https://github.com/DFE-Digital/login.dfe.service-notifications.jobs#readme",
   "dependencies": {
-    "kue": "^0.11.6"
+    "kue": "^0.11.6",
+    "login.dfe.async-retry": "git+https://github.com/DFE-Digital/login.dfe.async-retry.git#v1.0",
+    "login.dfe.jwt-strategies": "git+https://github.com/DFE-Digital/login.dfe.jwt-strategies.git#v2.0.1",
+    "login.dfe.request-promise-retry": "git+https://github.com/DFE-Digital/login.dfe.request-promise-retry.git#v1.0",
+    "request-promise": "^4.2.2",
+    "sequelize": "^4.37.5",
+    "soap": "^0.25.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "eslint": "^4.4.1",

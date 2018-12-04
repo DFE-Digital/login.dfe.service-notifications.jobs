@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified"
+           targetNamespace="http://localhost:3000/ws"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://localhost:3000/ws"
+>
+    <xs:element name="ProvisionUser">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="pur" nillable="true" type="tns:ProvisionUserRequest"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="ProvisionUserRequest">
+        <xs:sequence>
+            <xs:element name="saUserID" type="xs:int"/>
+            <xs:element name="emailAddress" nillable="true" type="xs:string"/>
+            <xs:element name="organisationId" type="xs:int"/>
+            <xs:element name="wsAccountStatusCode" type="tns:WsUserStatus"/>
+            <xs:element name="establishmentUrn" nillable="true" type="xs:int"/>
+            <xs:element name="groupUid" nillable="true" type="xs:long"/>
+            <xs:element name="localAuthorityCode" nillable="true" type="xs:string"/>
+            <xs:element name="groups" type="tns:UserGroupList" minOccurs="0"/>
+            <xs:element name="action" type="tns:ProvisioningAction"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="ProvisionUserRequest" nillable="true" type="tns:ProvisionUserRequest"/>
+
+    <xs:complexType name="UserGroupList">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="SaUserGroup" type="tns:SaUserGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SaUserGroup">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="code" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="ProvisioningAction">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="CREATE"/>
+            <xs:enumeration value="UPDATE"/>
+            <xs:enumeration value="DEACTIVATE"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="WsUserStatus">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Active"/>
+            <xs:enumeration value="Archived"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="WsGroupStatus">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Active"/>
+            <xs:enumeration value="Archived"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="WsOrganisationStatus">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="OPEN"/>
+            <xs:enumeration value="CLOSED"/>
+            <xs:enumeration value="CLOSED_BUT_ACTIVE"/>
+            <xs:enumeration value="PROPOSED_TO_OPEN"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:element name="ProvisionUserResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="ProvisionUserResult" nillable="true" type="tns:UserIdentity"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="UserIdentity">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="userId" type="xs:int"/>
+            <xs:element minOccurs="0" name="userName" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="warningMessage" nillable="true" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="UserIdentity" nillable="true" type="tns:UserIdentity"/>
+
+    <xs:element name="ProvisionGroup">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="pgr" nillable="true" type="tns:ProvisionGroupRequest"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="ProvisionGroupRequest">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="code" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="status" type="tns:WsGroupStatus"/>
+            <xs:element name="parentId" type="xs:int"/>
+            <xs:element name="parentCode" type="xs:string"/>
+            <xs:element name="action" type="tns:ProvisioningAction"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="ProvisionGroupRequest" nillable="true" type="tns:ProvisionGroupRequest"/>
+    <xs:element name="ProvisionGroupResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="ProvisionGroupResult" nillable="true" type="tns:GroupIdentity"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="GroupIdentity">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="groupId" type="xs:int"/>
+            <xs:element minOccurs="0" name="groupCode" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="groupName" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="warningMessage" nillable="true" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="GroupIdentity" nillable="true" type="tns:GroupIdentity"/>
+
+    <xs:element name="ProvisionOrganisation">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="por" nillable="true" type="tns:ProvisionOrganisationRequest"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="ProvisionOrganisationRequest">
+        <xs:sequence>
+            <xs:element name="action" type="tns:ProvisioningAction"/>
+            <xs:element name="establishmentUrn" nillable="true" type="xs:int"/>
+            <xs:element name="groupUid" nillable="true" type="xs:long"/>
+            <xs:element name="organisationId" type="xs:int"/>
+            <xs:element name="organisationName" nillable="true" type="xs:string"/>
+            <xs:element name="localAuthorityCode" nillable="true" type="xs:string"/>
+            <xs:element name="wsOrganisationStatusCode" nillable="true" type="tns:WsOrganisationStatus"/>
+            <xs:element name="organisationTypeCode" nillable="true" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="ProvisionOrganisationRequest" nillable="true" type="tns:ProvisionOrganisationRequest"/>
+    <xs:element name="ProvisionOrganisationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="por" nillable="true" type="tns:ProvisionOrganisationIdentity"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="ProvisionOrganisationIdentity">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="organisationId" type="xs:int"/>
+            <xs:element minOccurs="0" name="organisationName" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="warningMessage" nillable="true" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="ProvisionOrganisationIdentity" nillable="true" type="tns:ProvisionOrganisationIdentity"/>
+
+    <xs:element name="ProvisionOrganisationBulkUpdate">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="por" nillable="true" type="tns:ProvisionOrganisationRequestBulkUpdate"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="ProvisionOrganisationRequestBulkUpdate">
+        <xs:sequence>
+            <xs:element name="action" type="tns:ProvisioningAction"/>
+            <xs:element name="establishmentUrn" nillable="true" type="xs:int"/>
+            <xs:element name="groupUid" nillable="true" type="xs:long"/>
+            <xs:element name="organisationId" type="xs:int"/>
+            <xs:element name="organisationName" nillable="true" type="xs:string"/>
+            <xs:element name="localAuthorityCode" nillable="true" type="xs:string"/>
+            <xs:element name="wsOrganisationStatusCode" nillable="true" type="tns:WsOrganisationStatus"/>
+            <xs:element name="organisationTypeCode" nillable="true" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="ProvisionOrganisationRequestBulkUpdate" nillable="true" type="tns:ProvisionOrganisationRequestBulkUpdate"/>
+    <xs:element name="ProvisionOrganisationBulkUpdateResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="por" nillable="true" type="tns:ProvisionOrganisationBulkUpdateIdentity"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="ProvisionOrganisationBulkUpdateIdentity">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="organisationId" type="xs:int"/>
+            <xs:element minOccurs="0" name="organisationName" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="warningMessage" nillable="true" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="ProvisionOrganisationBulkUpdateIdentity" nillable="true" type="tns:ProvisionOrganisationBulkUpdateIdentity"/>
+
+    <xs:element name="ProvisionGroupBulkUpdate">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="pgr" nillable="true" type="tns:ProvisionGroupRequest"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ProvisionGroupBulkUpdateResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="ProvisionGroupResultBulkUpdate" nillable="true" type="tns:GroupBulkUpdateIdentity"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="GroupBulkUpdateIdentity">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="groupId" type="xs:int"/>
+            <xs:element minOccurs="0" name="groupCode" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="groupName" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="warningMessage" nillable="true" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="GroupBulkUpdateIdentity" nillable="true" type="tns:GroupBulkUpdateIdentity"/>
+
+    <xs:element name="ProvisionUserBulkUpdate">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="por" nillable="true" type="tns:ProvisionUserRequestBulkUpdate"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="ProvisionUserRequestBulkUpdate">
+        <xs:sequence>
+            <xs:element name="saUserID" type="xs:int"/>
+            <xs:element name="emailAddress" nillable="true" type="xs:string"/>
+            <xs:element name="organisationId" type="xs:int"/>
+            <xs:element name="wsAccountStatusCode" type="tns:WsUserStatus"/>
+            <xs:element name="establishmentUrn" nillable="true" type="xs:int"/>
+            <xs:element name="groupUid" nillable="true" type="xs:long"/>
+            <xs:element name="localAuthorityCode" nillable="true" type="xs:string"/>
+            <xs:element name="groups" type="tns:UserGroupList" minOccurs="0"/>
+            <xs:element name="action" type="tns:ProvisioningAction"/>
+            <xs:element name="prefix" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="ProvisionUserRequestBulkUpdate" nillable="true" type="tns:ProvisionUserRequestBulkUpdate"/>
+    <xs:element name="ProvisionUserBulkUpdateResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" name="por" nillable="true" type="tns:ProvisionUserBulkUpdateIdentity"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="ProvisionUserBulkUpdateIdentity">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="organisationId" type="xs:int"/>
+            <xs:element minOccurs="0" name="organisationName" nillable="true" type="xs:string"/>
+            <xs:element minOccurs="0" name="warningMessage" nillable="true" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element name="ProvisionUserBulkUpdateIdentity" nillable="true" type="tns:ProvisionUserBulkUpdateIdentity"/>
+
+    <xs:element name="ArchiveUsers">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="prefix" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="ArchiveUsersResponse" nillable="true" type="xs:string"/>
+
+    <xs:element name="WsPermissions">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="prefix" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="WsPermissionsResponse" nillable="true" type="xs:string"/>
+</xs:schema>

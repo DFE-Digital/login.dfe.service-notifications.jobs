@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://localhost:3000/ws" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" name="EdubaseSAservice" targetNamespace="http://localhost:3000/ws">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:import namespace="http://localhost:3000/ws" schemaLocation="sa.xsd"/>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="IEdubaseSAservice_ProvisionUser_InputMessage">
+        <wsdl:part element="tns:ProvisionUser" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="IEdubaseSAservice_ProvisionUserBulkUpdate_InputMessage">
+        <wsdl:part element="tns:ProvisionUserBulkUpdate" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="IEdubaseSAservice_ProvisionUser_OutputMessage">
+        <wsdl:part element="tns:ProvisionUserResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="IEdubaseSAservice_ProvisionUserBulkUpdate_OutputMessage">
+        <wsdl:part element="tns:ProvisionUserBulkUpdateResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="IEdubaseSAservice_ProvisionGroup_InputMessage">
+        <wsdl:part element="tns:ProvisionGroup" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="IEdubaseSAservice_ProvisionGroupBulkUpdate_InputMessage">
+        <wsdl:part element="tns:ProvisionGroupBulkUpdate" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="IEdubaseSAservice_ProvisionGroup_OutputMessage">
+        <wsdl:part element="tns:ProvisionGroupResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="IEdubaseSAservice_ProvisionGroupBulkUpdate_OutputMessage">
+        <wsdl:part element="tns:ProvisionGroupBulkUpdateResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="IEdubaseSAservice_ProvisionOrganisation_InputMessage">
+        <wsdl:part element="tns:ProvisionOrganisation" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="IEdubaseSAservice_ProvisionOrganisationBulkUpdate_InputMessage">
+        <wsdl:part element="tns:ProvisionOrganisationBulkUpdate" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="IEdubaseSAservice_ProvisionOrganisation_OutputMessage">
+        <wsdl:part element="tns:ProvisionOrganisationResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="IEdubaseSAservice_ProvisionOrganisationBulkUpdate_OutputMessage">
+        <wsdl:part element="tns:ProvisionOrganisationBulkUpdateResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="IEdubaseSAservice_ArchiveUsers_InputMessage">
+        <wsdl:part element="tns:ArchiveUsers" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="IEdubaseSAservice_ArchiveUsers_OutputMessage">
+        <wsdl:part element="tns:ArchiveUsersResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="IEdubaseSAservice_WsPermissions_InputMessage">
+        <wsdl:part element="tns:WsPermissions" name="parameters"/>
+    </wsdl:message>
+    <wsdl:message name="IEdubaseSAservice_WsPermissions_OutputMessage">
+        <wsdl:part element="tns:WsPermissionsResponse" name="parameters"/>
+    </wsdl:message>
+    <wsdl:portType name="IEdubaseSAservice">
+        <wsdl:operation name="ProvisionUser">
+            <wsdl:input message="tns:IEdubaseSAservice_ProvisionUser_InputMessage" wsaw:Action="http://localhost:3000/ws/IEdubaseSAservice/ProvisionUser"/>
+            <wsdl:output message="tns:IEdubaseSAservice_ProvisionUser_OutputMessage" wsaw:Action="http://localhost:3000/ws/IEdubaseSAservice/ProvisionUserResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="ProvisionUserBulkUpdate">
+            <wsdl:input message="tns:IEdubaseSAservice_ProvisionUserBulkUpdate_InputMessage" wsaw:Action="http://localhost:3000/ws/IEdubaseSAservice/ProvisionUserBulkUpdate"/>
+            <wsdl:output message="tns:IEdubaseSAservice_ProvisionUserBulkUpdate_OutputMessage" wsaw:Action="http://localhost:3000/ws/IEdubaseSAservice/ProvisionUserBulkUpdateResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="ProvisionGroup">
+            <wsdl:input message="tns:IEdubaseSAservice_ProvisionGroup_InputMessage" wsaw:Action="http://localhost:3000/ws/IEdubaseSAservice/ProvisionGroup"/>
+            <wsdl:output message="tns:IEdubaseSAservice_ProvisionGroup_OutputMessage" wsaw:Action="http://localhost:3000/ws/IEdubaseSAservice/ProvisionGroupResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="ProvisionGroupBulkUpdate">
+            <wsdl:input message="tns:IEdubaseSAservice_ProvisionGroupBulkUpdate_InputMessage" wsaw:Action="http://localhost:3000/ws/IEdubaseSAservice/ProvisionGroupBulkUpdate"/>
+            <wsdl:output message="tns:IEdubaseSAservice_ProvisionGroupBulkUpdate_OutputMessage" wsaw:Action="http://localhost:3000/ws/IEdubaseSAservice/ProvisionGroupBulkUpdateResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="ProvisionOrganisation">
+            <wsdl:input message="tns:IEdubaseSAservice_ProvisionOrganisation_InputMessage" wsaw:Action="http://localhost:3000/ws/IEdubaseSAservice/ProvisionOrganisation"/>
+            <wsdl:output message="tns:IEdubaseSAservice_ProvisionOrganisation_OutputMessage" wsaw:Action="http://localhost:3000/ws/IEdubaseSAservice/ProvisionOrganisationResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="ProvisionOrganisationBulkUpdate">
+            <wsdl:input message="tns:IEdubaseSAservice_ProvisionOrganisationBulkUpdate_InputMessage" wsaw:Action="http://localhost:3000/ws/IEdubaseSAservice/ProvisionOrganisationBulkUpdate"/>
+            <wsdl:output message="tns:IEdubaseSAservice_ProvisionOrganisationBulkUpdate_OutputMessage" wsaw:Action="http://localhost:3000/ws/IEdubaseSAservice/ProvisionOrganisationBulkUpdateResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="ArchiveUsers">
+            <wsdl:input message="tns:IEdubaseSAservice_ArchiveUsers_InputMessage" wsaw:Action="http://localhost:3000/ws/IEdubaseSAservice/ArchiveUsers"/>
+            <wsdl:output message="tns:IEdubaseSAservice_ArchiveUsers_OutputMessage" wsaw:Action="http://localhost:3000/ws/IEdubaseSAservice/ArchiveUsersResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="WsPermissions">
+            <wsdl:input message="tns:IEdubaseSAservice_WsPermissions_InputMessage" wsaw:Action="http://localhost:3000/ws/IEdubaseSAservice/WsPermissions"/>
+            <wsdl:output message="tns:IEdubaseSAservice_WsPermissions_OutputMessage" wsaw:Action="http://localhost:3000/ws/IEdubaseSAservice/WsPermissionsResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="BasicHttpBinding_IEdubaseSAservice" type="tns:IEdubaseSAservice">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="ProvisionUser">
+            <soap:operation soapAction="http://localhost:3000/ws/IEdubaseSAservice/ProvisionUser" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ProvisionUserBulkUpdate">
+            <soap:operation soapAction="http://localhost:3000/ws/IEdubaseSAservice/ProvisionUserBulkUpdate" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ProvisionGroup">
+            <soap:operation soapAction="http://localhost:3000/ws/IEdubaseSAservice/ProvisionGroup" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ProvisionGroupBulkUpdate">
+            <soap:operation soapAction="http://localhost:3000/ws/IEdubaseSAservice/ProvisionGroupBulkUpdate" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ProvisionOrganisation">
+            <soap:operation soapAction="http://localhost:3000/ws/IEdubaseSAservice/ProvisionOrganisation" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ProvisionOrganisationBulkUpdate">
+            <soap:operation soapAction="http://localhost:3000/ws/IEdubaseSAservice/ProvisionOrganisationBulkUpdate" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="ArchiveUsers">
+            <soap:operation soapAction="http://localhost:3000/ws/IEdubaseSAservice/ArchiveUsers" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="WsPermissions">
+            <soap:operation soapAction="http://localhost:3000/ws/IEdubaseSAservice/WsPermissions" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="EdubaseSAservice">
+        <wsdl:port binding="tns:BasicHttpBinding_IEdubaseSAservice" name="BasicHttpBinding_IEdubaseSAservice">
+            <soap:address location="http://localhost:3000/ws/service"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

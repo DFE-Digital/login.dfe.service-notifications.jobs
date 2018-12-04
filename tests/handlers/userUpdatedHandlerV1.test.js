@@ -7,26 +7,11 @@ const kue = require('kue');
 const AccessClient = require('./../../lib/infrastructure/access');
 const OrganisatonsClient = require('./../../lib/infrastructure/organisations');
 const { getAllApplicationRequiringNotification, enqueue } = require('./../../lib/handlers/utils');
+const { getDefaultConfig, getLoggerMock, getAccessClientMock, getOrganisationsClientMock } = require('./../testUtils');
 const { getHandler } = require('./../../lib/handlers/users/userUpdatedHandlerV1');
 
-const config = {
-  queueStorage: {
-    connectionString: 'redis://test:6379',
-  },
-  serviceNotifications: {
-    access: {
-      service: {
-        url: 'https://access.unit.tests',
-      },
-    },
-    organisations: {
-      service: {
-        url: 'https://organisations.unit.tests',
-      },
-    },
-  },
-};
-const logger = {};
+const config = getDefaultConfig();
+const logger = getLoggerMock();
 const data = {
   sub: 'user1',
   email: 'user.one@unit.tests',
@@ -36,18 +21,8 @@ const data = {
 };
 const jobId = 1;
 const queue = {};
-const accessClient = {
-  listUserAccess: jest.fn(),
-  mockResetAll: function () {
-    this.listUserAccess.mockReset();
-  },
-};
-const organisatonsClient = {
-  listUserOrganisations: jest.fn(),
-  mockResetAll: function () {
-    this.listUserOrganisations.mockReset();
-  },
-};
+const accessClient = getAccessClientMock();
+const organisatonsClient = getOrganisationsClientMock();
 
 describe('when handling userupdated_v1 job', () => {
   beforeEach(() => {

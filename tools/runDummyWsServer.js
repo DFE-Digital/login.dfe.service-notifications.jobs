@@ -1,0 +1,24 @@
+const express = require('express');
+const fs = require('fs');
+const path = require('path')
+
+const app = express();
+const wsdlFilesDir = path.join(path.resolve(__dirname), 'dummyWsdl');
+
+app.use((req, res, next) => {
+  console.info(`${req.method} ${req.url}`);
+  next();
+});
+
+app.get('/ws/wsdl', (req, res) => {
+  const wsdl = fs.readFileSync(path.join(wsdlFilesDir, 'wsdl.xml'));
+  res.contentType('xml').send(wsdl);
+});
+app.get('/ws/sa.xsd', (req, res) => {
+  const wsdl = fs.readFileSync(path.join(wsdlFilesDir, 'sa.xsd'));
+  res.contentType('xml').send(wsdl);
+});
+
+app.listen(3000, () => {
+  console.log('Wsdl can be found at http://localhost:3000/ws/wsdl');
+});

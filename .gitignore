@@ -63,3 +63,4 @@ typings/
 \.idea/workspace\.xml
 \.idea/markdown-navigator\.xml
 \.idea/markdown-navigator/
+tools/config/

@@ -96,7 +96,7 @@ describe('when handling sendwsuserupdated_v1 job', () => {
     expect(SecureAccessWebServiceClient.create).toHaveBeenCalledTimes(1);
     expect(SecureAccessWebServiceClient.create).toHaveBeenCalledWith('https://service.one.test/ws/wsdl', 'userone', 'the-password', false, 'senduserupdated-1');
     expect(secureAccessWebServiceClient.provisionUser).toHaveBeenCalledTimes(1);
-    expect(secureAccessWebServiceClient.provisionUser).toHaveBeenCalledWith('CREATE', data.user.legacyUserId, data.user.email, data.user.organisationId, data.user.status,
+    expect(secureAccessWebServiceClient.provisionUser).toHaveBeenCalledWith('CREATE', data.user.legacyUserId, data.user.email, data.user.organisationId, 'Active',
       data.user.organisationUrn, data.user.organisationLACode, data.user.roles);
   });
 
@@ -109,7 +109,7 @@ describe('when handling sendwsuserupdated_v1 job', () => {
     expect(SecureAccessWebServiceClient.create).toHaveBeenCalledTimes(1);
     expect(SecureAccessWebServiceClient.create).toHaveBeenCalledWith('https://service.one.test/ws/wsdl', 'userone', 'the-password', false, 'senduserupdated-1');
     expect(secureAccessWebServiceClient.provisionUser).toHaveBeenCalledTimes(1);
-    expect(secureAccessWebServiceClient.provisionUser).toHaveBeenCalledWith('UPDATE', data.user.legacyUserId, data.user.email, data.user.organisationId, data.user.status,
+    expect(secureAccessWebServiceClient.provisionUser).toHaveBeenCalledWith('UPDATE', data.user.legacyUserId, data.user.email, data.user.organisationId, 'Active',
       data.user.organisationUrn, data.user.organisationLACode, data.user.roles);
   });
 

@@ -32,14 +32,14 @@ describe('when handling userupdated_v1 job', () => {
         serviceId: 'service1',
         organisationId: 'organisation1',
         roles: [
-          { id: 'role1', code: 'ROLE-ONE' },
+          { id: 'role1', code: 'ROLE-ONE', numericId: 1 },
         ],
       },
       {
         serviceId: 'service2',
         organisationId: 'organisation1',
         roles: [
-          { id: 'role2', code: 'ROLE-TWO' },
+          { id: 'role2', code: 'ROLE-TWO', numericId: 2 },
         ],
       },
     ]);
@@ -136,7 +136,7 @@ describe('when handling userupdated_v1 job', () => {
         organisationLACode: '999',
         roles: [
           {
-            id: 'role1',
+            id: 1,
             code: 'ROLE-ONE',
           },
         ],
@@ -154,7 +154,7 @@ describe('when handling userupdated_v1 job', () => {
         organisationLACode: '999',
         roles: [
           {
-            id: 'role2',
+            id: 2,
             code: 'ROLE-TWO',
           },
         ],

@@ -125,11 +125,7 @@ describe('when handling userupdated_v1 job', () => {
 
     expect(enqueue).toHaveBeenCalledTimes(2);
     expect(enqueue).toHaveBeenCalledWith(queue, 'sendwsuserupdated_v1', {
-      application: {
-        id: 'service1',
-        wsdlUrl: 'https://service.one/wsdl',
-        provisionUserAction: 'pu-action',
-      },
+      applicationId: 'service1',
       user: {
         userId: 'user1',
         legacyUserId: 'sauser1',
@@ -147,11 +143,7 @@ describe('when handling userupdated_v1 job', () => {
       },
     });
     expect(enqueue).toHaveBeenCalledWith(queue, 'sendwsuserupdated_v1', {
-      application: {
-        id: 'service2',
-        wsdlUrl: 'https://service.two/wsdl',
-        provisionUserAction: 'pu-action-1',
-      },
+      applicationId: 'service2',
       user: {
         userId: 'user1',
         legacyUserId: 'sauser1',

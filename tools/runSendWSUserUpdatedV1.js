@@ -16,11 +16,7 @@ const data = {
       },
     ],
   },
-  application:{
-    id: '057429C0-0700-4FCC-BDA5-32B5B7CE223F',
-    wsdlUrl: 'http://localhost:3000/ws/wsdl',
-    provisionUserAction: 'pu-action',
-  },
+  applicationId: '057429C0-0700-4FCC-BDA5-32B5B7CE223F',
 };
 
 run('sendwsuserupdated_v1', data).then(() => {

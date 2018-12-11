@@ -16,6 +16,11 @@ const getDefaultConfig = () => {
           url: 'https://organisations.unit.tests',
         },
       },
+      applications: {
+        service: {
+          url: 'https://organisations.unit.tests',
+        },
+      },
     },
   };
 };
@@ -47,6 +52,17 @@ const getOrganisationsClientMock = () => {
     listUserOrganisations: jest.fn(),
     mockResetAll: function () {
       this.listUserOrganisations.mockReset();
+    },
+  };
+};
+
+const getApplicationsClientMock = () => {
+  return {
+    listApplications: jest.fn(),
+    getApplication: jest.fn(),
+    mockResetAll: function () {
+      this.listApplications.mockReset();
+      this.getApplication.mockReset();
     },
   };
 };
@@ -83,5 +99,6 @@ module.exports = {
   getLoggerMock,
   getAccessClientMock,
   getOrganisationsClientMock,
+  getApplicationsClientMock,
   getRepositoryMock,
 };

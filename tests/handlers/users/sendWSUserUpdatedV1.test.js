@@ -1,12 +1,12 @@
-jest.mock('./../../lib/infrastructure/repository');
-jest.mock('./../../lib/infrastructure/applications');
-jest.mock('./../../lib/infrastructure/webServices/SecureAccessWebServiceClient');
+jest.mock('./../../../lib/infrastructure/repository');
+jest.mock('./../../../lib/infrastructure/applications');
+jest.mock('./../../../lib/infrastructure/webServices/SecureAccessWebServiceClient');
 
-const { getRepository } = require('./../../lib/infrastructure/repository');
-const ApplicationsClient = require('./../../lib/infrastructure/applications');
-const SecureAccessWebServiceClient = require('./../../lib/infrastructure/webServices/SecureAccessWebServiceClient');
-const { getDefaultConfig, getLoggerMock, getRepositoryMock, getApplicationsClientMock } = require('./../testUtils');
-const { getHandler } = require('./../../lib/handlers/users/sendWSUserUpdatedV1');
+const { getRepository } = require('./../../../lib/infrastructure/repository');
+const ApplicationsClient = require('./../../../lib/infrastructure/applications');
+const SecureAccessWebServiceClient = require('./../../../lib/infrastructure/webServices/SecureAccessWebServiceClient');
+const { getDefaultConfig, getLoggerMock, getRepositoryMock, getApplicationsClientMock } = require('./../../testUtils');
+const { getHandler } = require('./../../../lib/handlers/users/sendWSUserUpdatedV1');
 
 const config = getDefaultConfig();
 const logger = getLoggerMock();

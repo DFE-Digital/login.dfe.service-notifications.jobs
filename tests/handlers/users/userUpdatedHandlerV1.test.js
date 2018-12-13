@@ -1,14 +1,14 @@
 jest.mock('kue');
-jest.mock('./../../lib/infrastructure/access');
-jest.mock('./../../lib/infrastructure/organisations');
-jest.mock('./../../lib/handlers/utils');
+jest.mock('./../../../lib/infrastructure/access');
+jest.mock('./../../../lib/infrastructure/organisations');
+jest.mock('./../../../lib/handlers/utils');
 
 const kue = require('kue');
-const AccessClient = require('./../../lib/infrastructure/access');
-const OrganisatonsClient = require('./../../lib/infrastructure/organisations');
-const { getAllApplicationRequiringNotification, enqueue } = require('./../../lib/handlers/utils');
-const { getDefaultConfig, getLoggerMock, getAccessClientMock, getOrganisationsClientMock } = require('./../testUtils');
-const { getHandler } = require('./../../lib/handlers/users/userUpdatedHandlerV1');
+const AccessClient = require('./../../../lib/infrastructure/access');
+const OrganisatonsClient = require('./../../../lib/infrastructure/organisations');
+const { getAllApplicationRequiringNotification, enqueue } = require('./../../../lib/handlers/utils');
+const { getDefaultConfig, getLoggerMock, getAccessClientMock, getOrganisationsClientMock } = require('./../../testUtils');
+const { getHandler } = require('./../../../lib/handlers/users/userUpdatedHandlerV1');
 
 const config = getDefaultConfig();
 const logger = getLoggerMock();

@@ -23,11 +23,10 @@ IF NOT EXISTS(SELECT 1 FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'role_s
     CREATE TABLE service_notifications.role_state (
       service_id uniqueidentifier NOT NULL,
       role_id uniqueidentifier NOT NULL,
-      organisation_id int NOT NULL,
       last_action_sent varchar(50) NULL,
       createdAt datetime2 NOT NULL,
       updatedAt datetime2 NOT NULL,
-      CONSTRAINT [PK_ServiceNotifications_RoleState] PRIMARY KEY (service_id, role_id, organisation_id)
+      CONSTRAINT [PK_ServiceNotifications_RoleState] PRIMARY KEY (service_id, role_id)
     )
   END
 GO

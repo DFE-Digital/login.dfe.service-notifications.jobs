@@ -2,21 +2,21 @@ const { run } = require('./runHelper');
 
 const data = {
   user: {
-    userId: 'A92D1615-F520-4D0D-A106-9A9554A8D1EF',
-    legacyUserId: 987654,
-    email: 'user.one@unit.tests',
+    userId: "A92D1615-F520-4D0D-A106-9A9554A8D1EF",
+    legacyUserId: "3601457",
+    email: "user.one@unit.tests",
     status: 1,
-    organisationId: 123,
-    organisationUrn: '987654',
-    organisationLACode: '999',
+    organisationId: "1014619",
+    organisationUrn: "136853",
+    organisationLACode: "826",
     roles: [
       {
-        id: 1,
-        code: 'ROLE-ONE',
-      },
-    ],
+        id: "9999",
+        code: "DSI_Child_One"
+      }
+    ]
   },
-  applicationId: '057429C0-0700-4FCC-BDA5-32B5B7CE223F',
+  applicationId: "77D6B281-9F8D-4649-84B8-87FC42EEE71D"
 };
 
 run('sendwsuserupdated_v1', data).then(() => {

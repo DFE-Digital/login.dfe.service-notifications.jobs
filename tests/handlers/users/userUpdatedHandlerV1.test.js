@@ -1,13 +1,15 @@
 jest.mock('kue');
 jest.mock('./../../../lib/infrastructure/access');
 jest.mock('./../../../lib/infrastructure/organisations');
+jest.mock('./../../../lib/infrastructure/directories');
 jest.mock('./../../../lib/handlers/utils');
 
 const kue = require('kue');
 const AccessClient = require('./../../../lib/infrastructure/access');
-const OrganisatonsClient = require('./../../../lib/infrastructure/organisations');
+const OrganisationsClient = require('./../../../lib/infrastructure/organisations');
+const DirectoriesClient = require('./../../../lib/infrastructure/directories');
 const { getAllApplicationRequiringNotification, enqueue } = require('./../../../lib/handlers/utils');
-const { getDefaultConfig, getLoggerMock, getAccessClientMock, getOrganisationsClientMock } = require('./../../testUtils');
+const { getDefaultConfig, getLoggerMock, getAccessClientMock, getOrganisationsClientMock, getDirectoriesClientMock } = require('./../../testUtils');
 const { getHandler } = require('./../../../lib/handlers/users/userUpdatedHandlerV1');
 
 const config = getDefaultConfig();
@@ -15,14 +17,13 @@ const logger = getLoggerMock();
 const data = {
   sub: 'user1',
   email: 'user.one@unit.tests',
-  status: {
-    id: 1,
-  },
+  status: 1,
 };
 const jobId = 1;
 const queue = {};
 const accessClient = getAccessClientMock();
 const organisatonsClient = getOrganisationsClientMock();
+const directoriesClient = getDirectoriesClientMock();
 
 describe('when handling userupdated_v1 job', () => {
   beforeEach(() => {
@@ -59,7 +60,15 @@ describe('when handling userupdated_v1 job', () => {
         numericIdentifier: 'sauser1',
       },
     ]);
-    OrganisatonsClient.mockImplementation(() => organisatonsClient);
+    OrganisationsClient.mockImplementation(() => organisatonsClient);
+
+    directoriesClient.mockResetAll();
+    directoriesClient.getUser.mockReturnValue({
+      sub: 'user1',
+      email: 'user.one-fromdir@unit.tests',
+      status: 2,
+    });
+    DirectoriesClient.mockImplementation(() => directoriesClient);
 
     kue.createQueue.mockReset().mockReturnValue(queue);
 
@@ -156,6 +165,84 @@ describe('when handling userupdated_v1 job', () => {
           {
             id: 2,
             code: 'ROLE-TWO',
+          },
+        ],
+      },
+    });
+  });
+
+  it('then it should get user details from directories if data has no email', async () => {
+    getAllApplicationRequiringNotification.mockReset().mockReturnValue([
+      {
+        id: 'service1',
+        relyingParty: {
+          params: {
+            wsWsdlUrl: 'https://service.one/wsdl',
+            wsProvisionUserAction: 'pu-action',
+          },
+        },
+      },
+    ]);
+
+    const handler = getHandler(config, logger);
+    await handler.processor({ sub: data.sub, status: data.status }, jobId);
+
+    expect(directoriesClient.getUser).toHaveBeenCalledTimes(1);
+    expect(directoriesClient.getUser).toHaveBeenCalledWith(data.sub);
+    expect(enqueue).toHaveBeenCalledTimes(1);
+    expect(enqueue).toHaveBeenCalledWith(queue, 'sendwsuserupdated_v1', {
+      applicationId: 'service1',
+      user: {
+        userId: 'user1',
+        legacyUserId: 'sauser1',
+        email: 'user.one-fromdir@unit.tests',
+        status: 2,
+        organisationId: 123,
+        organisationUrn: '985632',
+        organisationLACode: '999',
+        roles: [
+          {
+            id: 1,
+            code: 'ROLE-ONE',
+          },
+        ],
+      },
+    });
+  });
+
+  it('then it should get user details from directories if data has no status', async () => {
+    getAllApplicationRequiringNotification.mockReset().mockReturnValue([
+      {
+        id: 'service1',
+        relyingParty: {
+          params: {
+            wsWsdlUrl: 'https://service.one/wsdl',
+            wsProvisionUserAction: 'pu-action',
+          },
+        },
+      },
+    ]);
+
+    const handler = getHandler(config, logger);
+    await handler.processor({ sub: data.sub, email: data.email }, jobId);
+
+    expect(directoriesClient.getUser).toHaveBeenCalledTimes(1);
+    expect(directoriesClient.getUser).toHaveBeenCalledWith(data.sub);
+    expect(enqueue).toHaveBeenCalledTimes(1);
+    expect(enqueue).toHaveBeenCalledWith(queue, 'sendwsuserupdated_v1', {
+      applicationId: 'service1',
+      user: {
+        userId: 'user1',
+        legacyUserId: 'sauser1',
+        email: 'user.one-fromdir@unit.tests',
+        status: 2,
+        organisationId: 123,
+        organisationUrn: '985632',
+        organisationLACode: '999',
+        roles: [
+          {
+            id: 1,
+            code: 'ROLE-ONE',
           },
         ],
       },

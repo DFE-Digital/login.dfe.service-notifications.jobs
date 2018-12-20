@@ -67,6 +67,15 @@ const getApplicationsClientMock = () => {
   };
 };
 
+const getDirectoriesClientMock = () => {
+  return {
+    getUser: jest.fn(),
+    mockResetAll: function () {
+      this.getUser.mockReset();
+    },
+  };
+};
+
 const mockEntity = () => {
   return {
     find: jest.fn(),
@@ -100,5 +109,6 @@ module.exports = {
   getAccessClientMock,
   getOrganisationsClientMock,
   getApplicationsClientMock,
+  getDirectoriesClientMock,
   getRepositoryMock,
 };

@@ -4,6 +4,9 @@ const data = {
   user: {
     userId: "A92D1615-F520-4D0D-A106-9A9554A8D1EF",
     legacyUserId: "3601457",
+    legacyUsername: 'dis128sj',
+    firstName: 'DSI User',
+    lastName: 'One',
     email: "user.one@unit.tests",
     status: 1,
     organisationId: "1014619",
@@ -11,12 +14,12 @@ const data = {
     organisationLACode: "826",
     roles: [
       {
-        id: "9999",
-        code: "DSI_Child_One"
+        id: "6",
+        code: "access"
       }
     ]
   },
-  applicationId: "77D6B281-9F8D-4649-84B8-87FC42EEE71D"
+  applicationId: "4FD40032-61A6-4BEB-A6C4-6B39A3AF81C1"
 };
 
 run('sendwsuserupdated_v1', data).then(() => {

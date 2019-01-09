@@ -41,7 +41,7 @@ const data = {
     legacyId: '1014619',
     companyRegistrationNumber: null
   },
-  applicationId: '77D6B281-9F8D-4649-84B8-87FC42EEE71D',
+  applicationId: '4FD40032-61A6-4BEB-A6C4-6B39A3AF81C1',
 };
 
 run('sendwsorganisationupdated_v1', data).then(() => {

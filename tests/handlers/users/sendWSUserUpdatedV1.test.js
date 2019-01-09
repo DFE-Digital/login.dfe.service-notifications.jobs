@@ -14,6 +14,9 @@ const data = {
   user: {
     userId: 'user1',
     legacyUserId: 987654,
+    legacyUsername: 987654,
+    firstName: 'User',
+    lastName: 'One',
     email: 'user.one@unit.tests',
     status: 1,
     organisationId: 123,
@@ -96,8 +99,8 @@ describe('when handling sendwsuserupdated_v1 job', () => {
     expect(SecureAccessWebServiceClient.create).toHaveBeenCalledTimes(1);
     expect(SecureAccessWebServiceClient.create).toHaveBeenCalledWith('https://service.one.test/ws/wsdl', 'userone', 'the-password', false, 'senduserupdated-1');
     expect(secureAccessWebServiceClient.provisionUser).toHaveBeenCalledTimes(1);
-    expect(secureAccessWebServiceClient.provisionUser).toHaveBeenCalledWith('CREATE', data.user.legacyUserId, data.user.email, data.user.organisationId, 'Active',
-      data.user.organisationUrn, data.user.organisationLACode, data.user.roles);
+    expect(secureAccessWebServiceClient.provisionUser).toHaveBeenCalledWith('CREATE', data.user.legacyUserId, data.user.legacyUsername, data.user.firstName, data.user.lastName,
+      data.user.email, data.user.organisationId, 1, data.user.organisationUrn, data.user.organisationLACode, data.user.roles);
   });
 
   it('then it should send update message to application if previous state stored', async () => {
@@ -109,8 +112,8 @@ describe('when handling sendwsuserupdated_v1 job', () => {
     expect(SecureAccessWebServiceClient.create).toHaveBeenCalledTimes(1);
     expect(SecureAccessWebServiceClient.create).toHaveBeenCalledWith('https://service.one.test/ws/wsdl', 'userone', 'the-password', false, 'senduserupdated-1');
     expect(secureAccessWebServiceClient.provisionUser).toHaveBeenCalledTimes(1);
-    expect(secureAccessWebServiceClient.provisionUser).toHaveBeenCalledWith('UPDATE', data.user.legacyUserId, data.user.email, data.user.organisationId, 'Active',
-      data.user.organisationUrn, data.user.organisationLACode, data.user.roles);
+    expect(secureAccessWebServiceClient.provisionUser).toHaveBeenCalledWith('UPDATE', data.user.legacyUserId, data.user.legacyUsername, data.user.firstName, data.user.lastName,
+      data.user.email, data.user.organisationId, 1, data.user.organisationUrn, data.user.organisationLACode, data.user.roles);
   });
 
   it('then it should store the new user state', async () => {

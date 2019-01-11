@@ -104,7 +104,7 @@ describe('when handling sendwsuserupdated_v1 job', () => {
   });
 
   it('then it should send update message to application if previous state stored', async () => {
-    repository.userState.find.mockReturnValue({ last_state_sent: 'UPDATE' });
+    repository.userState.find.mockReturnValue({ last_action_sent: 'UPDATE' });
 
     const handler = getHandler(config, logger);
     await handler.processor(data, jobId);

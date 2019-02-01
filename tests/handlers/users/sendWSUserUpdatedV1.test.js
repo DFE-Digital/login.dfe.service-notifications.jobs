@@ -6,6 +6,7 @@ const { getRepository } = require('./../../../lib/infrastructure/repository');
 const ApplicationsClient = require('./../../../lib/infrastructure/applications');
 const SecureAccessWebServiceClient = require('./../../../lib/infrastructure/webServices/SecureAccessWebServiceClient');
 const { getDefaultConfig, getLoggerMock, getRepositoryMock, getApplicationsClientMock } = require('./../../testUtils');
+const uuid = require('uuid/v4');
 const { getHandler } = require('./../../../lib/handlers/users/sendWSUserUpdatedV1');
 
 const config = getDefaultConfig();
@@ -41,6 +42,8 @@ const secureAccessWebServiceClient = {
 
 describe('when handling sendwsuserupdated_v1 job', () => {
   beforeEach(() => {
+    data.applicationId = uuid();
+
     getRepository.mockReset().mockReturnValue(repository);
     repository.mockResetAll();
     repository.userState.find.mockReturnValue({
@@ -61,6 +64,7 @@ describe('when handling sendwsuserupdated_v1 job', () => {
 
     applicationsClient.mockResetAll();
     applicationsClient.getApplication.mockReturnValue({
+      id: data.applicationId,
       relyingParty: {
         params: {
           receiveUserUpdates: 'true',

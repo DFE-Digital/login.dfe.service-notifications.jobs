@@ -103,6 +103,13 @@ const getRepositoryMock = () => {
   };
 };
 
+const mockHandler = (type) => {
+  return {
+    type,
+    processor: jest.fn(),
+  };
+};
+
 module.exports = {
   getDefaultConfig,
   getLoggerMock,
@@ -111,4 +118,5 @@ module.exports = {
   getApplicationsClientMock,
   getDirectoriesClientMock,
   getRepositoryMock,
+  mockHandler,
 };

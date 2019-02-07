@@ -1,9 +1,7 @@
 jest.mock('./../../../lib/infrastructure/repository');
-jest.mock('./../../../lib/infrastructure/applications');
 jest.mock('./../../../lib/infrastructure/webServices/SecureAccessWebServiceClient');
 
 const { getRepository } = require('./../../../lib/infrastructure/repository');
-const ApplicationsClient = require('./../../../lib/infrastructure/applications');
 const SecureAccessWebServiceClient = require('./../../../lib/infrastructure/webServices/SecureAccessWebServiceClient');
 const { getDefaultConfig, getLoggerMock, getRepositoryMock, getApplicationsClientMock } = require('./../../testUtils');
 const uuid = require('uuid/v4');
@@ -33,7 +31,17 @@ const data = {
   applicationId: 'service1',
 };
 const jobId = 1;
-const applicationsClient = getApplicationsClientMock();
+const application = {
+  id: data.applicationId,
+  relyingParty: {
+    params: {
+      receiveUserUpdates: 'true',
+      wsWsdlUrl: 'https://service.one.test/ws/wsdl',
+      wsUsername: 'userone',
+      wsPassword: 'the-password',
+    },
+  },
+};
 const repository = getRepositoryMock();
 const secureAccessWebServiceClient = {
   provisionUser: jest.fn(),
@@ -43,6 +51,7 @@ const secureAccessWebServiceClient = {
 describe('when handling sendwsuserupdated_v1 job', () => {
   beforeEach(() => {
     data.applicationId = uuid();
+    application.id = data.applicationId;
 
     getRepository.mockReset().mockReturnValue(repository);
     repository.mockResetAll();
@@ -62,26 +71,12 @@ describe('when handling sendwsuserupdated_v1 job', () => {
       },
     ]);
 
-    applicationsClient.mockResetAll();
-    applicationsClient.getApplication.mockReturnValue({
-      id: data.applicationId,
-      relyingParty: {
-        params: {
-          receiveUserUpdates: 'true',
-          wsWsdlUrl: 'https://service.one.test/ws/wsdl',
-          wsUsername: 'userone',
-          wsPassword: 'the-password',
-        },
-      },
-    });
-    ApplicationsClient.mockImplementation(() => applicationsClient);
-
     SecureAccessWebServiceClient.create.mockReset().mockImplementation(() => secureAccessWebServiceClient);
     secureAccessWebServiceClient.provisionUser.mockReset();
   });
 
   it('then it should get previous state for application and user', async () => {
-    const handler = getHandler(config, logger);
+    const handler = getHandler(config, logger, application);
     await handler.processor(data, jobId);
 
     expect(repository.userState.find).toHaveBeenCalledTimes(1);
@@ -97,7 +92,7 @@ describe('when handling sendwsuserupdated_v1 job', () => {
   it('then it should send create message to application if no previous state stored', async () => {
     repository.userState.find.mockReturnValue(undefined);
 
-    const handler = getHandler(config, logger);
+    const handler = getHandler(config, logger, application);
     await handler.processor(data, jobId);
 
     expect(SecureAccessWebServiceClient.create).toHaveBeenCalledTimes(1);
@@ -110,7 +105,7 @@ describe('when handling sendwsuserupdated_v1 job', () => {
   it('then it should send update message to application if previous state stored', async () => {
     repository.userState.find.mockReturnValue({ last_action_sent: 'UPDATE' });
 
-    const handler = getHandler(config, logger);
+    const handler = getHandler(config, logger, application);
     await handler.processor(data, jobId);
 
     expect(SecureAccessWebServiceClient.create).toHaveBeenCalledTimes(1);
@@ -121,7 +116,7 @@ describe('when handling sendwsuserupdated_v1 job', () => {
   });
 
   it('then it should store the new user state', async () => {
-    const handler = getHandler(config, logger);
+    const handler = getHandler(config, logger, application);
     await handler.processor(data, jobId);
 
     expect(repository.userState.upsert).toHaveBeenCalledTimes(1);

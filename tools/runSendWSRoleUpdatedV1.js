@@ -22,7 +22,7 @@ const data = {
   applicationId: '77D6B281-9F8D-4649-84B8-87FC42EEE71D',
 };
 
-run('sendwsroleupdated_v1', data).then(() => {
+run(`sendwsroleupdated_v1_${data.applicationId}`, data).then(() => {
   console.info('Job completed successfully');
 }).catch((e) => {
   console.error(`Job failed: ${e.stack}`);

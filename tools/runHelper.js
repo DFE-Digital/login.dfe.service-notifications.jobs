@@ -30,7 +30,7 @@ const run = async (type, data) => {
     throw new Error(`Error parsing config: ${e.message}`);
   }
 
-  const jobs = register(config, logger);
+  const jobs = await register(config, logger);
   const job = jobs.find(j => j.type === type);
   if (!job) {
     throw new Error(`Cannot find job of type ${type}. Available types are: ${jobs.map(j => j.type).join(', ')}`);

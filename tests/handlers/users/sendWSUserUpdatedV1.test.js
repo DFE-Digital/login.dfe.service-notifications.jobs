@@ -75,6 +75,12 @@ describe('when handling sendwsuserupdated_v1 job', () => {
     secureAccessWebServiceClient.provisionUser.mockReset();
   });
 
+  it('then it should register handler with application specific type', () => {
+    const handler = getHandler(config, logger, application);
+
+    expect(handler.type).toBe(`sendwsuserupdated_v1_${application.id}`);
+  });
+
   it('then it should get previous state for application and user', async () => {
     const handler = getHandler(config, logger, application);
     await handler.processor(data, jobId);

@@ -133,7 +133,7 @@ describe('when handling userupdated_v1 job', () => {
     await handler.processor(data, jobId);
 
     expect(enqueue).toHaveBeenCalledTimes(2);
-    expect(enqueue).toHaveBeenCalledWith(queue, 'sendwsuserupdated_v1', {
+    expect(enqueue).toHaveBeenCalledWith(queue, 'sendwsuserupdated_v1_service1', {
       applicationId: 'service1',
       user: {
         userId: 'user1',
@@ -151,7 +151,7 @@ describe('when handling userupdated_v1 job', () => {
         ],
       },
     });
-    expect(enqueue).toHaveBeenCalledWith(queue, 'sendwsuserupdated_v1', {
+    expect(enqueue).toHaveBeenCalledWith(queue, 'sendwsuserupdated_v1_service2', {
       applicationId: 'service2',
       user: {
         userId: 'user1',
@@ -190,7 +190,7 @@ describe('when handling userupdated_v1 job', () => {
     expect(directoriesClient.getUser).toHaveBeenCalledTimes(1);
     expect(directoriesClient.getUser).toHaveBeenCalledWith(data.sub);
     expect(enqueue).toHaveBeenCalledTimes(1);
-    expect(enqueue).toHaveBeenCalledWith(queue, 'sendwsuserupdated_v1', {
+    expect(enqueue).toHaveBeenCalledWith(queue, 'sendwsuserupdated_v1_service1', {
       applicationId: 'service1',
       user: {
         userId: 'user1',
@@ -229,7 +229,7 @@ describe('when handling userupdated_v1 job', () => {
     expect(directoriesClient.getUser).toHaveBeenCalledTimes(1);
     expect(directoriesClient.getUser).toHaveBeenCalledWith(data.sub);
     expect(enqueue).toHaveBeenCalledTimes(1);
-    expect(enqueue).toHaveBeenCalledWith(queue, 'sendwsuserupdated_v1', {
+    expect(enqueue).toHaveBeenCalledWith(queue, 'sendwsuserupdated_v1_service1', {
       applicationId: 'service1',
       user: {
         userId: 'user1',

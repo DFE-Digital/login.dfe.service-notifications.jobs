@@ -80,11 +80,11 @@ describe('when handling roleupdated_v1 job', () => {
     await handler.processor(data, jobId);
 
     expect(enqueue).toHaveBeenCalledTimes(2);
-    expect(enqueue).toHaveBeenCalledWith(queue, 'sendwsroleupdated_v1', {
+    expect(enqueue).toHaveBeenCalledWith(queue, 'sendwsroleupdated_v1_service1', {
       applicationId: 'service1',
       role: data,
     });
-    expect(enqueue).toHaveBeenCalledWith(queue, 'sendwsroleupdated_v1', {
+    expect(enqueue).toHaveBeenCalledWith(queue, 'sendwsroleupdated_v1_service2', {
       applicationId: 'service2',
       role: data,
     });

@@ -100,6 +100,7 @@ describe('when handling userupdated_v1 job', () => {
     expect(getAllApplicationRequiringNotification).toHaveBeenCalledTimes(1);
     expect(getAllApplicationRequiringNotification.mock.calls[0][0]).toBe(config);
     expect(getAllApplicationRequiringNotification.mock.calls[0][2]).toBe('userupdated-1');
+    expect(getAllApplicationRequiringNotification.mock.calls[0][3]).toBe(true);
     expect(getAllApplicationRequiringNotification.mock.calls[0][1]({})).toBeUndefined();
     expect(getAllApplicationRequiringNotification.mock.calls[0][1]({ relyingParty: {} })).toBeUndefined();
     expect(getAllApplicationRequiringNotification.mock.calls[0][1]({ relyingParty: { params: {} } })).toBe(false);
@@ -162,6 +163,51 @@ describe('when handling userupdated_v1 job', () => {
         organisationUrn: '985632',
         organisationLACode: '999',
         roles: [
+          {
+            id: 2,
+            code: 'ROLE-TWO',
+          },
+        ],
+      },
+    });
+  });
+
+  it('then it should queue a senduserupdated_v1 job for each parent application if user has access to only child application', async () => {
+    getAllApplicationRequiringNotification.mockReset().mockReturnValue([
+      {
+        id: 'service1parent',
+        relyingParty: {
+          params: {
+            wsWsdlUrl: 'https://service.one/wsdl',
+            wsProvisionUserAction: 'pu-action',
+          },
+        },
+        children: [
+          { id: 'service1' },
+          { id: 'service2' },
+        ],
+      },
+    ]);
+
+    const handler = getHandler(config, logger);
+    await handler.processor(data, jobId);
+
+    expect(enqueue).toHaveBeenCalledTimes(1);
+    expect(enqueue).toHaveBeenCalledWith(queue, 'sendwsuserupdated_v1_service1parent', {
+      applicationId: 'service1parent',
+      user: {
+        userId: 'user1',
+        legacyUserId: 'sauser1',
+        email: 'user.one@unit.tests',
+        status: 1,
+        organisationId: 123,
+        organisationUrn: '985632',
+        organisationLACode: '999',
+        roles: [
+          {
+            id: 1,
+            code: 'ROLE-ONE',
+          },
           {
             id: 2,
             code: 'ROLE-TWO',

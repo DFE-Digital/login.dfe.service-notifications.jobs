@@ -105,7 +105,7 @@ describe('when handling sendwsuserupdated_v1 job', () => {
     expect(SecureAccessWebServiceClient.create).toHaveBeenCalledWith('https://service.one.test/ws/wsdl', 'userone', 'the-password', false, 'senduserupdated-1');
     expect(secureAccessWebServiceClient.provisionUser).toHaveBeenCalledTimes(1);
     expect(secureAccessWebServiceClient.provisionUser).toHaveBeenCalledWith('CREATE', data.user.legacyUserId, data.user.legacyUsername, data.user.firstName, data.user.lastName,
-      data.user.email, data.user.organisationId, 1, data.user.organisationUrn, data.user.organisationLACode, data.user.roles);
+      data.user.email, data.user.organisationId, 1, data.user.organisationUrn, data.user.organisationLACode, data.user.roles, data.user.organisationUid);
   });
 
   it('then it should send update message to application if previous state stored', async () => {
@@ -118,7 +118,7 @@ describe('when handling sendwsuserupdated_v1 job', () => {
     expect(SecureAccessWebServiceClient.create).toHaveBeenCalledWith('https://service.one.test/ws/wsdl', 'userone', 'the-password', false, 'senduserupdated-1');
     expect(secureAccessWebServiceClient.provisionUser).toHaveBeenCalledTimes(1);
     expect(secureAccessWebServiceClient.provisionUser).toHaveBeenCalledWith('UPDATE', data.user.legacyUserId, data.user.legacyUsername, data.user.firstName, data.user.lastName,
-      data.user.email, data.user.organisationId, 1, data.user.organisationUrn, data.user.organisationLACode, data.user.roles);
+      data.user.email, data.user.organisationId, 1, data.user.organisationUrn, data.user.organisationLACode, data.user.roles, data.user.organisationUid);
   });
 
   it('then it should store the new user state', async () => {

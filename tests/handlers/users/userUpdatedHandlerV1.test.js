@@ -294,4 +294,57 @@ describe('when handling userupdated_v1 job', () => {
       },
     });
   });
+
+  it('then it should get establishment number as LA code if category is 002', async () => {
+
+    organisatonsClient.listUserOrganisations.mockReturnValue([
+      {
+        organisation: {
+          id: 'organisation1',
+          legacyId: 123,
+          urn: '985632',
+          category: {
+            id: '002',
+          },
+          establishmentNumber: '898'
+        },
+        numericIdentifier: 'sauser1',
+      },
+    ]);
+
+    getAllApplicationRequiringNotification.mockReset().mockReturnValue([
+      {
+        id: 'service1',
+        relyingParty: {
+          params: {
+            wsWsdlUrl: 'https://service.one/wsdl',
+            wsProvisionUserAction: 'pu-action',
+          },
+        },
+      },
+    ]);
+
+    const handler = getHandler(config, logger);
+    await handler.processor(data, jobId);
+
+    expect(enqueue).toHaveBeenCalledTimes(1);
+    expect(enqueue).toHaveBeenCalledWith(queue, 'sendwsuserupdated_v1_service1', {
+      applicationId: 'service1',
+      user: {
+        userId: 'user1',
+        legacyUserId: 'sauser1',
+        email: 'user.one@unit.tests',
+        status: 1,
+        organisationId: 123,
+        organisationUrn: '985632',
+        organisationLACode: '898',
+        roles: [
+          {
+            id: 1,
+            code: 'ROLE-ONE',
+          },
+        ],
+      },
+    });
+  });
 });

@@ -23,7 +23,7 @@
     "login.dfe.request-promise-retry": "git+https://github.com/DFE-Digital/login.dfe.request-promise-retry.git#v2.1",
     "request-promise": "^4.2.3",
     "request": "^2.88.0",
-    "sequelize": "^4.44.3",
+    "sequelize": "^5.15.1",
     "tedious": "^2.6.4",
     "uuid": "^3.3.2",
     "xml-escape": "^1.1.0",

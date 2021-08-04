@@ -55,7 +55,7 @@ describe('when handling sendwsuserupdated_v1 job', () => {
 
     getRepository.mockReset().mockReturnValue(repository);
     repository.mockResetAll();
-    repository.userState.find.mockReturnValue({
+    repository.userState.findOne.mockReturnValue({
       user_id: data.user.userId,
       legacy_user_id: data.user.legacyUserId,
       email: data.user.email,
@@ -85,8 +85,8 @@ describe('when handling sendwsuserupdated_v1 job', () => {
     const handler = getHandler(config, logger, application);
     await handler.processor(data, jobId);
 
-    expect(repository.userState.find).toHaveBeenCalledTimes(1);
-    expect(repository.userState.find).toHaveBeenCalledWith({
+    expect(repository.userState.findOne).toHaveBeenCalledTimes(1);
+    expect(repository.userState.findOne).toHaveBeenCalledWith({
       where: {
         service_id: data.applicationId,
         user_id: data.user.userId,
@@ -96,7 +96,7 @@ describe('when handling sendwsuserupdated_v1 job', () => {
   });
 
   it('then it should send create message to application if no previous state stored', async () => {
-    repository.userState.find.mockReturnValue(undefined);
+    repository.userState.findOne.mockReturnValue(undefined);
 
     const handler = getHandler(config, logger, application);
     await handler.processor(data, jobId);
@@ -109,7 +109,7 @@ describe('when handling sendwsuserupdated_v1 job', () => {
   });
 
   it('then it should send update message to application if previous state stored', async () => {
-    repository.userState.find.mockReturnValue({ last_action_sent: 'UPDATE' });
+    repository.userState.findOne.mockReturnValue({ last_action_sent: 'UPDATE' });
 
     const handler = getHandler(config, logger, application);
     await handler.processor(data, jobId);

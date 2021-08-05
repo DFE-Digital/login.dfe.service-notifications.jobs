@@ -78,13 +78,13 @@ const getDirectoriesClientMock = () => {
 
 const mockEntity = () => {
   return {
-    find: jest.fn(),
+    findOne: jest.fn(),
     findAll: jest.fn(),
     upsert: jest.fn(),
     create: jest.fn(),
     destroy: jest.fn(),
     mockResetAll: function() {
-      this.find.mockReset();
+      this.findOne.mockReset();
       this.findAll.mockReset();
       this.upsert.mockReset();
       this.create.mockReset();

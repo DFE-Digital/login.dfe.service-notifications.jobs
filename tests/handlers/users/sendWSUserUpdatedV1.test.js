@@ -4,7 +4,7 @@ jest.mock('./../../../lib/infrastructure/webServices/SecureAccessWebServiceClien
 const { getRepository } = require('./../../../lib/infrastructure/repository');
 const SecureAccessWebServiceClient = require('./../../../lib/infrastructure/webServices/SecureAccessWebServiceClient');
 const { getDefaultConfig, getLoggerMock, getRepositoryMock, getApplicationsClientMock } = require('./../../testUtils');
-const uuid = require('uuid/v4');
+const { v4:uuid } = require('uuid');
 const { getHandler } = require('./../../../lib/handlers/users/sendWSUserUpdatedV1');
 
 const config = getDefaultConfig();

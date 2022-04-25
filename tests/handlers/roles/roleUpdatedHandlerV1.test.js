@@ -1,9 +1,9 @@
-jest.mock('kue');
+jest.mock('login.dfe.kue');
 jest.mock('./../../../lib/infrastructure/access');
 jest.mock('./../../../lib/infrastructure/organisations');
 jest.mock('./../../../lib/handlers/utils');
 
-const kue = require('kue');
+const kue = require('login.dfe.kue');
 const { getAllApplicationRequiringNotification, enqueue } = require('./../../../lib/handlers/utils');
 const { getDefaultConfig, getLoggerMock } = require('./../../testUtils');
 const { getHandler } = require('./../../../lib/handlers/roles/roleUpdatedHandlerV1');

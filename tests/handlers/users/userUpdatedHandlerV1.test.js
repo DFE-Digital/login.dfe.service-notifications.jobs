@@ -1,10 +1,10 @@
-jest.mock('kue');
+jest.mock('login.dfe.kue');
 jest.mock('./../../../lib/infrastructure/access');
 jest.mock('./../../../lib/infrastructure/organisations');
 jest.mock('./../../../lib/infrastructure/directories');
 jest.mock('./../../../lib/handlers/utils');
 
-const kue = require('kue');
+const kue = require('login.dfe.kue');
 const AccessClient = require('./../../../lib/infrastructure/access');
 const OrganisationsClient = require('./../../../lib/infrastructure/organisations');
 const DirectoriesClient = require('./../../../lib/infrastructure/directories');

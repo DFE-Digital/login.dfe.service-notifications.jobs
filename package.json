@@ -4,7 +4,7 @@
   "description": "Processor for inter-service notifications",
   "main": "lib/index.js",
   "scripts": {
-    "test": "./node_modules/.bin/jest --coverage"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",

@@ -17,14 +17,14 @@
   },
   "homepage": "https://github.com/DFE-Digital/login.dfe.service-notifications.jobs#readme",
   "dependencies": {
-    "login.dfe.async-retry": "git+https://github.com/DFE-Digital/login.dfe.async-retry.git#v1.0",
-    "login.dfe.jwt-strategies": "git+https://github.com/DFE-Digital/login.dfe.jwt-strategies.git#v3.0",
+    "login.dfe.async-retry": "git+https://github.com/DFE-Digital/login.dfe.async-retry.git#v2.0.0",
+    "login.dfe.jwt-strategies": "git+https://github.com/DFE-Digital/login.dfe.jwt-strategies.git#v4.0.0",
     "login.dfe.kue": "git+https://github.com/DFE-Digital/login.dfe.kue.git#v0.11.6",
-    "login.dfe.request-promise-retry": "git+https://github.com/DFE-Digital/login.dfe.request-promise-retry.git#v2.1",
+    "login.dfe.request-promise-retry": "git+https://github.com/DFE-Digital/login.dfe.request-promise-retry.git#v3.0.0",
     "request": "^2.88.0",
     "request-promise": "^4.2.3",
     "sequelize": "^6.18.0",
-    "tedious": "^8.3.0",
+    "tedious": "^16.6.0",
     "uuid": "^8.3.2",
     "xml-escape": "^1.1.0",
     "xml2js": "^0.4.19"
@@ -34,8 +34,8 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.4",
     "express": "^4.17.3",
-    "jest": "^27.5.1",
-    "jest-cli": "^27.5.1"
+    "jest": "^29.6.3",
+    "jest-cli": "^29.6.3"
   },
   "jest": {
     "testEnvironment": "node",

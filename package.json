@@ -1,10 +1,10 @@
 {
   "name": "login.dfe.service-notifications.jobs",
-  "version": "2.2.2",
+  "version": "2.3.2",
   "description": "Processor for inter-service notifications",
   "main": "lib/index.js",
   "scripts": {
-    "test": "./node_modules/.bin/jest"
+    "test": "jest --coverage"
   },
   "repository": {
     "type": "git",

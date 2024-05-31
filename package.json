@@ -20,14 +20,11 @@
     "login.dfe.async-retry": "github:DFE-Digital/login.dfe.async-retry#v2.0.3",
     "login.dfe.jwt-strategies": "github:DFE-Digital/login.dfe.jwt-strategies#v4.1.0",
     "login.dfe.kue": "github:DFE-Digital/login.dfe.kue#v0.12.0",
-    "login.dfe.request-promise-retry": "github:DFE-Digital/login.dfe.request-promise-retry#v3.1.0",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.3",
     "sequelize": "^6.18.0",
     "tedious": "^16.6.0",
     "uuid": "^8.3.2",
     "xml-escape": "^1.1.0",
-    "xml2js": "^0.4.19"
+    "xml2js": "^0.5.0"
   },
   "devDependencies": {
     "eslint": "^8.12.0",

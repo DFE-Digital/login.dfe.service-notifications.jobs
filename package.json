@@ -1,6 +1,6 @@
 {
   "name": "login.dfe.service-notifications.jobs",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "description": "Processor for inter-service notifications",
   "main": "lib/index.js",
   "scripts": {

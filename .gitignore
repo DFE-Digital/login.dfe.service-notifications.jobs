@@ -60,6 +60,9 @@ typings/
 # next.js build output
 .next
 
+# npmrc file
+.npmrc
+
 \.idea/workspace\.xml
 \.idea/markdown-navigator\.xml
 \.idea/markdown-navigator/
